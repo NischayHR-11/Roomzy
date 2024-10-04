@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roomzy</title>
+</head>
+<body>
+
+    <h1>LISTING..</h1>
+
+    <ul>
+
+        <% for(let list of listings){ %>
+
+            <li><a href="/<%=list._id%>"><%=list.title%></a></li>
+
+        <%}%>
+    </ul>
+    
+</body>
+</html>
