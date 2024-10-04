@@ -1,0 +1,12 @@
+{
+  "name": "roomzy",
+  "version": "1.0.0",
+  "description": "This Is a Full-Stack Wed Development Project ,Which Is Related With Browsing Rooms In Different Placeses You Visit.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
