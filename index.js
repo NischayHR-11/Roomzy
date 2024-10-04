@@ -4,8 +4,8 @@ const port=8080;
 const method=require("method-override");
 const path=require("path");
 const mongoose=require("mongoose");
-const data = require("./init/data");
-const listing=require("./init/data.js");
+// const data = require("./init/data");
+const listing=require("./models/listings");
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"/views"));
@@ -35,9 +35,51 @@ app.get("/",(req,res)=>{
     res.send("This Is Root Page.");
 });
 
-app.get("/listing",(req,res)=>{
+app.get("/listing",async(req,res)=>{
 
-    console.log(listing);
-    const listings=listing.sampleListings;
-    res.render("listing/index.ejs",{listings});
+    const listings= await listing.find({});
+    res.render("listing/index",{listings});
 });
+
+app.get("/listing/new",(req,res)=>{
+
+    res.render("listing/new");
+});
+
+app.get("/listing/:id",async(req,res)=>{
+
+    let {id}=req.params;
+    let list=await listing.findById(id);
+    res.render("listing/info",{list});
+});
+
+app.post("/listing",async(req,res)=>{
+
+    let listings=req.body;
+    console.log(listings);
+    
+    await listing.create(listings.listing);
+    res.redirect("/listing")
+});
+
+app.get("/listing/:id/edit",async(req,res)=>{
+
+    let {id}=req.params;
+    const list = await listing.findById(id);
+    // console.log(list);
+    res.render("listing/edit",{list});
+})
+
+app.patch("/listing/:id",async(req,res)=>{
+
+    let {id}=req.params;
+    await listing.findByIdAndUpdate(id,{...req.body.listing});
+    res.redirect("/listing");
+})
+
+app.delete("/listing/:id",async(req,res)=>{
+
+    let {id}=req.params;
+    await listing.deleteOne({_id:id});
+    res.redirect("/listing");
+})
