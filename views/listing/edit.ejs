@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+<body>
+    <form method="POST" action="/listing/<%=list._id%>?_method=PATCH">
+
+        <h1>Add New Room Details</h1>
+
+        <h3>Title : </h3>
+        <input type="text" value="<%=list.title%>" name="listing[title]">
+        <br>
+        <h3>Description : </h3>
+        <textarea name="listing[description]" rows="5" cols="50"><%=list.description%></textarea>
+        <br><br>
+        <h3>Image url : </h3>
+        <input type="text" value="<%=list.image%>" name="listing[image]">
+        <br>
+        <h3>Price : </h3>
+        <input type="text" value="<%=list.price%>" name="listing[price]">
+        <br>
+        <h3>location : </h3>
+        <input type="text" value="<%=list.location%>" name="listing[location]">
+        <br>
+        <h3>Country : </h3>
+        <input type="text" value="<%=list.country%>" name="listing[country]">
+        <br><br>
+
+        <button> Finish </button>
+    </form>
+</body>
+</html>
