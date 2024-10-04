@@ -8,13 +8,23 @@
 <body>
 
     <h1>LISTING..</h1>
+    <form method="get" action="/listing/new">
+    <button>Create</button>
+    </form>
 
     <ul>
 
         <% for(let list of listings){ %>
 
-            <li><a href="/<%=list._id%>"><%=list.title%></a></li>
-
+            <li><a href="/listing/<%=list._id%>"><%=list.title%></a>
+                <form action="/listing/<%=list._id%>/edit">
+                    <button>Edit</button>
+                </form>
+                <form method="post" action="/listing/<%=list._id%>?_method=DELETE">
+                    <button>Delete</button>
+                </form>
+            </li>
+            
         <%}%>
     </ul>
     
