@@ -1,0 +1,59 @@
+body{
+
+    background-color: white;
+}
+
+.navbar-toggler{
+
+    text-decoration: none;
+    border: 0rem;
+    height: 2.5rem;
+}
+
+.footer{
+
+    margin-top: 1.5rem;
+    flex-direction: column;
+    display: flex;
+    width :100%;
+    align-items: center;
+    justify-content: center;
+    background-color:#EBEBEB;
+}
+
+.f-social i {
+
+    font-size: 1.5rem;
+}
+
+.f-links {
+
+    margin-bottom: 1.5rem;
+}
+
+.f-social a , .f-links a {
+
+    text-decoration: none;
+    color: black;
+    margin-right: 1.5rem;
+}
+
+.f-links, .f-brand{
+
+    font-size: 1.2rem;
+}
+
+.f-social a,.f-links a:hover {
+
+    text-decoration: underline;
+}
+
+.f-links ,.f-social, .f-brand{
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.2rem;
+    color: black;
+}
