@@ -4,14 +4,18 @@ const port=8080;
 const method=require("method-override");
 const path=require("path");
 const mongoose=require("mongoose");
-// const data = require("./init/data");
 const listing=require("./models/listings");
+const ejsmate=require("ejs-mate");
+
+
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"/views"));
 app.use(express.static(path.join(__dirname,"/public")));
 app.use(express.urlencoded({extended:true}));
 app.use(method('_method'));
+app.engine("ejs",ejsmate);
+
 
 main().then(()=>{
     console.log("DATA BASE CONNECTED SUCCESSFULLY..");
