@@ -1,5 +1,5 @@
 body{
-
+    font-family: "Plus Jakarta Sans", sans-serif !important;
     background-color: white;
 }
 
@@ -56,4 +56,23 @@ body{
     justify-content: center;
     margin-top: 1.2rem;
     color: black;
+}
+
+
+.card{
+
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+
+    border-radius: 1rem !important;
+    height: 20rem;
+    width :100% !important;
+    object-fit: cover;
+}
+
+.row a {
+
+    text-decoration: none;
 }
