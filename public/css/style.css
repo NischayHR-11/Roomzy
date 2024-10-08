@@ -73,7 +73,7 @@ body{
 }
 
 .card-img-overlay{
-    
+
     opacity: 0;
 }
 
@@ -91,4 +91,14 @@ body{
 .row a {
 
     text-decoration: none;
+}
+
+.row-i{
+
+    display: flex;
+}
+
+.row-i button {
+
+    margin-right: 1.5rem;
 }
