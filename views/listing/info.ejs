@@ -4,10 +4,10 @@
     
     <h2><%=list.title%></h2><br><br>
     <img src="<%=list.image%>" alt="" style="height: 20rem;width:40rem;object-fit: cover;border-radius: 1rem;"><br><br>
-    <h3><%=list.description%></h3><br>
-    <h3>Price : &#8377;<%= list.price.toLocaleString("en-IN") %></h3><br>
-    <h3>location : <%=list.location%></h3><br>
-    <h3>Country : <%=list.country%></h3><br>
+    <h4><%=list.description%></h4><br><br>
+    <h4>Price : &#8377;<%= list.price.toLocaleString("en-IN") %></h4><br>
+    <h4>location : <%=list.location%></h4><br>
+    <h4>Country : <%=list.country%></h4><br>
     <form action="/listing/<%=list._id%>/edit" method="get">
         <button>Edit</button>
         <br><br>
