@@ -72,6 +72,22 @@ body{
     object-fit: cover;
 }
 
+.card-img-overlay{
+    
+    opacity: 0;
+}
+
+.card-img-overlay:hover{
+
+    opacity: 1;
+    background-color: rgb(255, 255, 255,.15);
+}
+
+.heart-icon{
+    
+    opacity: 1;
+}
+
 .row a {
 
     text-decoration: none;
