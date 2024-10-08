@@ -1,20 +1,26 @@
 <% layout("layouts/boilerplate") %>
 
 <body>
-    
+
     <h2><%=list.title%></h2><br><br>
     <img src="<%=list.image%>" alt="" style="height: 20rem;width:40rem;object-fit: cover;border-radius: 1rem;"><br><br>
     <h4><%=list.description%></h4><br><br>
     <h4>Price : &#8377;<%= list.price.toLocaleString("en-IN") %></h4><br>
     <h4>location : <%=list.location%></h4><br>
     <h4>Country : <%=list.country%></h4><br>
-    <form action="/listing/<%=list._id%>/edit" method="get">
-        <button>Edit</button>
-        <br><br>
-    </form>
-    <form action="/listing/<%=list._id%>?_method=Delete" method="post">
-        <button>Delete</button>
-        <br>
-    </form>
+
+    <div class="row-i">
+        
+            <form action="/listing/<%=list._id%>/edit" method="get">
+                <button class="btn btn-dark " style="background-color: rgb(254, 66, 77,0.85);border: none;">Edit</button>
+                <br><br>
+            </form>
+
+            <form action="/listing/<%=list._id%>?_method=Delete" method="post">
+                <button class="btn btn-dark " style="border: none;width: 8rem;">Delete</button>
+                <br>
+            </form>
+
+    </div>
 
 </body>
