@@ -3,27 +3,46 @@
 <body>
     <form method="POST" action="/listing">
 
-        <h1>Add New Room Details</h1>
-        <br>
-        <h4>Title : </h4>
-        <input type="text" placeholder="title" name="listing[title]">
-        <br><br>
-        <h4>Description : </h4>
-        <textarea name="listing[description]" placeholder="description" rows="5" cols="50"></textarea>
-        <br><br>
-        <h4>Image url : </h4>
-        <input type="text" placeholder="image" name="listing[image]">
-        <br>
-        <h4>Price : </h4>
-        <input type="text" placeholder="price" name="listing[price]">
-        <br>
-        <h4>location : </h4>
-        <input type="text" placeholder="location" name="listing[location]">
-        <br>
-        <h4>Country : </h4>
-        <input type="text" placeholder="country" name="listing[country]">
-        <br><br>
 
-        <button> Add </button>
+        <h2>Add New Room Details</h2>
+        <br>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" placeholder="Enter the catchy title !! " name="listing[title]" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="listing[description]" placeholder="Express the feel" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image Url</label>
+            <input type="text" placeholder="image" name="listing[image]" class="form-control">
+        </div>
+
+        <div class="row ">
+            
+            <div class="mb-3 col-md-2">
+                <label for="price" class="form-label">price</label>
+                <input type="number" placeholder="12000" name="listing[price]" class="form-control">
+            </div>
+            
+            <div class="mb-3 col-md-4">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" placeholder="banglore" name="listing[location]" class="form-control">
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <label for="country" class="form-label">country</label>
+            <input type="text" placeholder="India" name="listing[country]" class="form-control">
+        </div>
+        <br>
+
+        <button class="btn btn-dark" class="mb-5"> Add </button>
+        <br>
     </form>
 </body>
