@@ -2,21 +2,34 @@
 <% layout("layouts/boilerplate") %>
 <body>
 
-    <ul>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
 
         <% for(let list of listings){ %>
 
-            <li><a href="/listing/<%=list._id%>"><%=list.title%></a>
-                <form action="/listing/<%=list._id%>/edit">
-                    <button>Edit</button>
-                </form>
-                <form method="post" action="/listing/<%=list._id%>?_method=DELETE">
-                    <button>Delete</button>
-                </form>
-            </li>
+            <a href="/listing/<%=list._id%>">
+
+                <div class="card col" style="border: none">
+                    <img src=<%= list.image %> class="card-img-top" alt="Hotel_Image">
+                    <div class="card-body">
+                        <p class="card-text">
+                        <b>
+                        <%= list.title %>
+                        <br>
+                        &#8377;<%= list.price.toLocaleString("en-IN") %>
+                        </b>
+                        </p>
+                    </div>
+                </div>
+            </a>
             
+                
         <%}%>
-    </ul>
+
+    </div>
+
+
+       
+
     
 </body>
 
