@@ -12,7 +12,11 @@ const listingschema= new mongoose.Schema({
         default:"https://www.pixelstalk.net/wp-content/uploads/2016/06/Nature-Wallpaper.jpg",
         set :(v)=>v===""?"https://www.pixelstalk.net/wp-content/uploads/2016/06/Nature-Wallpaper.jpg":v,
     },
-    price:Number,
+    price:{
+        type :Number,
+        min:0,
+    }
+    ,
     location:String,
     country:String
 });
