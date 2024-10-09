@@ -1,42 +1,48 @@
 <% layout("layouts/boilerplate") %>
 <body>
-    <form method="POST" action="/listing/<%=list._id%>?_method=PATCH">
+    <form method="POST" action="/listing/<%=list._id%>?_method=PATCH" novalidate class="needs-validation">
 
         <h2>Add New Room Details</h2>
         <br>
 
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" value=<%=list.title %> name="listing[title]" class="form-control">
+            <input type="text" value=<%=list.title %> name="listing[title]" class="form-control" required>
+            <div class="valid-feedback"> Title Looks good! </div>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea name="listing[description]" class="form-control"><%=list.description %>  </textarea>
+            <textarea name="listing[description]" class="form-control" required><%=list.description %>  </textarea>
+            <div class="invalid-feedback"> Description is required </div>
         </div>
 
         <div class="mb-3">
             <label for="image" class="form-label">Image Url</label>
-            <input type="text" value=<%=list.image %>  name="listing[image]" class="form-control">
+            <input type="text" value=<%=list.image %>  name="listing[image]" class="form-control" required>
+            <div class="invalid-feedback"> Enter the Valid Image </div>
         </div>
 
         <div class="row ">
             
             <div class="mb-3 col-md-2">
                 <label for="price" class="form-label">price</label>
-                <input type="number" value=<%=list.price %>  name="listing[price]" class="form-control">
+                <input type="number" value=<%=list.price %>  name="listing[price]" class="form-control" required>
+                <div class="invalid-feedback"> Enter the Valid Price </div>
             </div>
             
             <div class="mb-3 col-md-4">
                 <label for="location" class="form-label">Location</label>
-                <input type="text" value=<%=list.location %>  name="listing[location]" class="form-control">
+                <input type="text" value=<%=list.location %>  name="listing[location]" class="form-control" required>
+                <div class="invalid-feedback"> Enter the Valid Location </div>
             </div>
 
         </div>
 
         <div class="mb-3">
             <label for="country" class="form-label">country</label>
-            <input type="text" value=<%=list.country %>  name="listing[country]" class="form-control">
+            <input type="text" value=<%=list.country %>  name="listing[country]" class="form-control" required>
+            <div class="invalid-feedback"> Enter the Valid Country </div>
         </div>
         <br>
 
