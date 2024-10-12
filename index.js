@@ -28,7 +28,7 @@ main().then(()=>{                                                        // Sinc
 
 async function main() {                                               // To Connect mongoDb To Backend (Server).
     
-    await mongoose.connect("mongodb+srv://nischayhr11:Nischay1@cluster0.6p9g1.mongodb.net/Roomzy?retryWrites=true&w=majority&appName=Cluster0");       // MongoDB URL.
+    await mongoose.connect("mongodb+srv://nischayhr11:Nischay1@cluster0.6p9g1.mongodb.net/roomzy?retryWrites=true&w=majority&appName=Cluster0");       // MongoDB URL.
 }
 
 const listingvalidate=(req,res,next)=>{
