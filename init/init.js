@@ -11,7 +11,7 @@ main().then(()=>{
 
 async function main() {
     
-    await mongoose.connect("mongodb://127.0.0.1:27017/roomzy");
+    await mongoose.connect("mongodb+srv://nischayhr11:Nischay1@cluster0.6p9g1.mongodb.net/roomzy?retryWrites=true&w=majority&appName=Cluster0");
 }
 
 async function init(){
