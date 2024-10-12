@@ -82,7 +82,7 @@ app.get("/listing/:id",asyncwrap(async(req,res)=>{
 
 app.post("/listing",asyncwrap(async(req,res)=>{
 
-    if(!req.listing){
+    if(!req.body.listing){
 
         throw new Expresserror(404,"Please enter valid listing !!");
     }
