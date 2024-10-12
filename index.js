@@ -59,6 +59,7 @@ app.get("/listing",async(req,res,next)=>{
     try{
 
         const listings= await listing.find({});
+        console.log(listings);
         res.render("listing/index",{listings});
 
     }catch(err){
@@ -67,19 +68,19 @@ app.get("/listing",async(req,res,next)=>{
     }
 });
 
-app.get("/listing/new",listingvalidate,(req,res)=>{
+app.get("/listing/new",(req,res)=>{
 
     res.render("listing/new");
 });
 
-app.get("/listing/:id",listingvalidate,asyncwrap(async(req,res)=>{
+app.get("/listing/:id",asyncwrap(async(req,res)=>{
 
     let {id}=req.params;
     let list=await listing.findById(id);
     res.render("listing/info",{list});
 }));
 
-app.post("/listing",listingvalidate,asyncwrap(async(req,res)=>{
+app.post("/listing",asyncwrap(async(req,res)=>{
 
     if(!req.listing){
 
@@ -93,7 +94,7 @@ app.post("/listing",listingvalidate,asyncwrap(async(req,res)=>{
     res.redirect("/listing")
 }));
 
-app.get("/listing/:id/edit",listingvalidate,asyncwrap(async(req,res)=>{
+app.get("/listing/:id/edit",asyncwrap(async(req,res)=>{
 
     let {id}=req.params;
     const list = await listing.findById(id);
@@ -101,7 +102,7 @@ app.get("/listing/:id/edit",listingvalidate,asyncwrap(async(req,res)=>{
     res.render("listing/edit",{list});
 }));
 
-app.patch("/listing/:id",listingvalidate,asyncwrap(async(req,res)=>{
+app.patch("/listing/:id",asyncwrap(async(req,res)=>{
 
     if(!req.listing){                    // used even when form-validation is done .(client side ) because to over come server side error (sent through api requeests[postman,hopttsoch]).
 
@@ -113,7 +114,7 @@ app.patch("/listing/:id",listingvalidate,asyncwrap(async(req,res)=>{
     res.redirect("/listing");
 }));
 
-app.delete("/listing/:id",listingvalidate,asyncwrap(async(req,res)=>{
+app.delete("/listing/:id",asyncwrap(async(req,res)=>{
 
     let {id}=req.params;
     await listing.deleteOne({_id:id});
