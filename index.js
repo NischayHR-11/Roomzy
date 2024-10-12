@@ -54,7 +54,7 @@ app.get("/",(req,res)=>{
     res.send("This Is Root Page.");
 });
 
-app.get("/listing",listingvalidate,async(req,res,next)=>{
+app.get("/listing",async(req,res,next)=>{
 
     try{
 
