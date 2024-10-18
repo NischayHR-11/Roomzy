@@ -60,7 +60,6 @@ app.get("/listing",async(req,res,next)=>{
     try{
 
         const listings= await listing.find({});
-        console.log(listings);
         res.render("listing/index",{listings});
 
     }catch(err){
@@ -118,7 +117,8 @@ app.patch("/listing/:id",asyncwrap(async(req,res)=>{
 app.delete("/listing/:id",asyncwrap(async(req,res)=>{
 
     let {id}=req.params;
-    await listing.deleteOne({_id:id});
+    let d=await listing.findOneAndDelete({ _id: id });
+    // console.log(d);
     res.redirect("/listing");
 }));
 
@@ -152,4 +152,5 @@ app.use((err,req,res,next)=>{                                   // Error Handlin
 
     let{status=500,message="Something went wrong"}=err;
     res.status(status).render("listing/error",{message});
-})
+});
+
