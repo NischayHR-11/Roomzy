@@ -4,7 +4,7 @@
 
     <h2><%=list.title%></h2><br><br>
     <img src="<%=list.image%>" alt="" style="height: 38vh;width:60%;object-fit: cover;border-radius: 1rem;"><br><br>
-    <h4><%=list.description%></h4><br><br>
+    <p><%=list.description%></p><br><br>
     <h4>Price : &#8377;<%= list.price.toLocaleString("en-IN") %></h4><br>
     <h4>location : <%=list.location%></h4><br>
     <h4>Country : <%=list.country%></h4><br>
@@ -22,5 +22,49 @@
             </form>
 
     </div>
+
+    <hr>
+
+    <form action="/listing/<%=list._id %>/review" method="post" novalidate class="needs-validation" >
+
+    <h4>Add reviews</h4>
+    <br>
+
+    <div>
+        <label for="range" class="form-label">Rate</label>
+        <input type="range" class="form-range form-control" name="star" id="reviewstar" min="1" max="5">
+    </div>
+
+    <div>
+        <label for="review" class="form-label"></label>
+        <textarea name="reviewp" id="review" cols="50" rows="5" placeholder=" Leave The Reviews Here" class="form-control" required></textarea>
+        <div class="invalid-feedback"> Description is required </div>
+        <br>
+    </div>
+    
+    <button class="btn btn-dark">add</button>
+    </form>
+    <hr>
+    <h4>All Reviews</h4>
+    <%if(list.reviews.length){%>
+
+        <div class="row ">
+
+            <% for(r of list.reviews){ %>
+
+                <div class="card col-md-5 ms-3 mb-3 ">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">rating : <%= r.stars %> <br> <%= r.content %></p>
+                      <form action="/listing/<%=list._id %>/review/<%=r._id %>?_method=Delete" method="post">
+                        <button class="btn btn-outline-danger">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+            <% } %>
+
+        </div>
+        
+    <% } %>
 
 </body>
