@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+const review = require("./review.js");
 
 const listingschema= new mongoose.Schema({
 
@@ -29,6 +30,15 @@ const listingschema= new mongoose.Schema({
 
     location:String,
     country:String
+});
+
+
+listingschema.post("findOneAndDelete",async(listingdata)=>{     // post delete middle ware {executed every time when the listing is deleted } should the wriiten before defining model!!.
+
+        console.log("middle ware triggered...");
+        console.log(listingdata);
+        let d=await review.deleteMany({_id:{$in : listingdata.reviews}});
+        console.log("deleted data :"+d);
 });
 
 const listing = new mongoose.model("listing",listingschema);
