@@ -5,6 +5,7 @@ const method=require("method-override");                                // Form 
 const path=require("path");                                             // For Setting Deafult Paths
 const mongoose=require("mongoose");                                     // To Connect Mogodb and javascript ( Backend [node]).
 const listing=require("./models/listings");                             // Model (Structure of Collection with Schema).
+const review=require("./models/review");                                // Model (Structure of Collection with Schema).
 const ejsmate=require("ejs-mate");                                      // Frontend Templating Like BoilerPlates(Header,Footer).
 const asyncwrap=require("./utils/asyncwrap");                           // For Error Handling Instead Of Try Catch.
 const Expresserror=require("./utils/ExpressUserDefinedError");          // For Using User Defined Error Handlings.
@@ -28,7 +29,7 @@ main().then(()=>{                                                        // Sinc
 
 async function main() {                                               // To Connect mongoDb To Backend (Server).
     
-    await mongoose.connect("mongodb+srv://nischayhr11:Nischay1@cluster0.6p9g1.mongodb.net/roomzy?retryWrites=true&w=majority&appName=Cluster0");       // MongoDB URL.
+    await mongoose.connect("mongodb://127.0.0.1:27017/roomzy");       // MongoDB URL.
 }
 
 const listingvalidate=(req,res,next)=>{
@@ -38,7 +39,7 @@ const listingvalidate=(req,res,next)=>{
     if(error){
 
         let errmsg=error.details.map((el)=>el.message).join(",");  // all err details will be separated by ',' .
-        throw new Expresserror(400,error);
+        throw new Expresserror(400,errmsg);
     }else{
         next();
     }
@@ -76,7 +77,7 @@ app.get("/listing/new",(req,res)=>{
 app.get("/listing/:id",asyncwrap(async(req,res)=>{
 
     let {id}=req.params;
-    let list=await listing.findById(id);
+    let list=await listing.findById(id).populate("reviews");    // populate gives full information about reviews.(which before was only id)
     res.render("listing/info",{list});
 }));
 
@@ -119,6 +120,27 @@ app.delete("/listing/:id",asyncwrap(async(req,res)=>{
     let {id}=req.params;
     await listing.deleteOne({_id:id});
     res.redirect("/listing");
+}));
+
+app.post("/listing/:id/review",asyncwrap(async(req,res)=>{
+
+    console.log(req.body);
+    let {id}=req.params;
+    let{star,reviewp}=req.body;
+    let list=await listing.findById(id);
+    let r=await review.create({userid:"nischay",stars:star,content:reviewp});
+    list.reviews.push(r);
+    await list.save();
+    console.log(r);
+    res.redirect(`/listing/${id}`);
+}));
+
+app.delete("/listing/:id1/review/:id",asyncwrap(async(req,res)=>{
+
+    let {id1,id}=req.params;
+    await review.deleteOne({_id:id});
+    const p=await listing.findByIdAndUpdate(id1,{$pull :{reviews:id}});    // $pull=> removes perticular id from reviews in listing.
+    res.redirect(`/listing/${id1}`);
 }));
 
 app.all("*",(req,res,next)=>{
