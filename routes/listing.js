@@ -40,6 +40,7 @@ router.post("/",asyncwrap(async(req,res)=>{
     console.log(listings);
     
     await listing.create(listings.listing);
+    req.flash("success","New Listing Added..");
     res.redirect("/listing")
 }));
 
@@ -60,7 +61,8 @@ router.patch("/:id",asyncwrap(async(req,res)=>{
     
     let {id}=req.params;
     await listing.findByIdAndUpdate(id,{...req.body.listing});     // to split the attributes in object (...)
-    res.redirect("/listing");
+    req.flash("success","Listing Edited Successfully..");
+    res.redirect(`/listing/${id}`);
 }));
 
 router.delete("/:id",asyncwrap(async(req,res)=>{
@@ -68,6 +70,7 @@ router.delete("/:id",asyncwrap(async(req,res)=>{
     let {id}=req.params;
     let d=await listing.findOneAndDelete({ _id: id });
     // console.log(d);
+    req.flash("error","Listing Deleted Successfully..");
     res.redirect("/listing");
 }));
 
