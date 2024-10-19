@@ -9,6 +9,9 @@ const Expresserror=require("./utils/ExpressUserDefinedError");          // For U
 const {listingschema}=require("./ValidationSchema");                    // For  Error Handling By Apis Like Postman.
 const listingroutes =require("./routes/listing");                       // For Getting All The Routes Related To Listing.
 const reviewroutes =require("./routes/review");                         // For Getting All The Routes Related To review. 
+const session = require("express-session");                             // To create seesion id for every user who browses our website (stores some imp inf in temprorary storage {ex:amazon cart})
+const flash =require("connect-flash");                                  // To flash The Message Only once.
+
 
 app.set("view engine","ejs");                                    // When The Response Is 'Rendered' default path to access.
 app.set("views",path.join(__dirname,"/views"));               
@@ -43,13 +46,36 @@ const listingvalidate=(req,res,next)=>{
     }
 }
 
+const sessionoptions = {
+
+    secret : "mysupersceretcode",
+    resave : false,
+    saveUninitialized:true,
+    cookie :{
+
+        expires : Date.now() + 7*24*60*60*1000,       // expiry of the session cookie.
+        maxAge :  7*24*60*60*1000,
+    }
+
+}
+
+app.use(session(sessionoptions));
+app.use(flash());                                    // Should be defined before routes middleware.
+
+app.use((req,res,next)=>{
+
+    res.locals.success=req.flash("success");                // saves the success flash message to be printed, in browser storeage(treated like global variables). 
+    res.locals.error=req.flash("error");                    // saves the error flash message to be printed, in browser storeage(treated like global variables).
+    next();
+})
+
+app.use("/listing",listingroutes);
+app.use("/listing/:id/review",reviewroutes);
+
 app.listen(port,(req,res)=>{
 
     console.log("Listeing To the The Server Port 8080...");
 });
-
-app.use("/listing",listingroutes);
-app.use("/listing/:id/review",reviewroutes);
 
 app.get("/",(req,res)=>{
 
