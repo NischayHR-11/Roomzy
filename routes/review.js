@@ -16,6 +16,7 @@ router.post("/",asyncwrap(async(req,res)=>{
     console.log(r);
     list.reviews.push(r);
     await list.save();
+    req.flash("success","New Review Added..");
     res.redirect(`/listing/${id}`);
 }));
 
@@ -24,6 +25,7 @@ router.delete("/:id1",asyncwrap(async(req,res)=>{
     let {id,id1}=req.params;
     await review.deleteOne({_id:id1});
     const p=await listing.findByIdAndUpdate(id,{$pull :{reviews:id1}});    // $pull=> removes perticular id from reviews in listing.
+    req.flash("error","Review deleted successfully..");
     res.redirect(`/listing/${id}`);
 }));
 
