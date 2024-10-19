@@ -9,9 +9,12 @@ const Expresserror=require("./utils/ExpressUserDefinedError");          // For U
 const {listingschema}=require("./ValidationSchema");                    // For  Error Handling By Apis Like Postman.
 const listingroutes =require("./routes/listing");                       // For Getting All The Routes Related To Listing.
 const reviewroutes =require("./routes/review");                         // For Getting All The Routes Related To review. 
+const userroutes=require("./routes/user");
 const session = require("express-session");                             // To create seesion id for every user who browses our website (stores some imp inf in temprorary storage {ex:amazon cart})
 const flash =require("connect-flash");                                  // To flash The Message Only once.
-
+const passport=require("passport");                                     // Used For Authentication And Authorization.
+const LocalStrategy=require("passport-local");                          // Startegy In Passport Used For Authentication.
+const user=require("./models/User")                                     // Model (Structure of Collection with Schema).
 
 app.set("view engine","ejs");                                    // When The Response Is 'Rendered' default path to access.
 app.set("views",path.join(__dirname,"/views"));               
@@ -62,6 +65,13 @@ const sessionoptions = {
 app.use(session(sessionoptions));
 app.use(flash());                                    // Should be defined before routes middleware.
 
+app.use(passport.initialize());                      // Passport Used For Athentication.{ should be defined after Session Middle Ware.}
+app.use(passport.session());
+passport.use(new LocalStrategy(user.authenticate));
+
+passport.serializeUser(user.serializeUser());                // To Store The User Data into the Session.
+passport.deserializeUser(user.deserializeUser());            // To Remove The User Data From The Session.
+
 app.use((req,res,next)=>{
 
     res.locals.success=req.flash("success");                // saves the success flash message to be printed, in browser storeage(treated like global variables). 
@@ -71,6 +81,7 @@ app.use((req,res,next)=>{
 
 app.use("/listing",listingroutes);
 app.use("/listing/:id/review",reviewroutes);
+app.use("/",userroutes)
 
 app.listen(port,(req,res)=>{
 
