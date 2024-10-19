@@ -1,0 +1,33 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+
+    <div class="row">
+
+        <form action="/signup" method="post" novalidate class="needs-validation">
+
+            <h2>Roomzy SignUp</h2>
+            <br>
+        
+            <div class="mb-3">
+                <label for="username" class="form-label mb-2">Username</label>
+                <input type="text" placeholder="" name="username" class="form-control" required>
+                <div class="valid-feedback"> Looks good! </div>
+            </div>
+        
+            <div class="mb-3">
+                <label for="email" class="form-label mb-2">Email</label>
+                <input type="text" placeholder="@gmail.com" name="email" class="form-control" required>
+            </div>
+        
+            <div class="mb-5">
+                <label for="password" class="form-label mb-2">password</label>
+                <input type="password" placeholder="Enter password" name="password" class="form-control" required>
+            </div>
+        
+            <button class="btn btn-success" class="mb-5"> SignUp</button>
+            <br>
+        </form>
+
+    </div>
+</body>
