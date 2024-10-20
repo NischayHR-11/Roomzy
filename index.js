@@ -75,6 +75,7 @@ app.use((req,res,next)=>{
 
     res.locals.success=req.flash("success");                // saves the success flash message to be printed, in browser storeage(treated like global variables). 
     res.locals.error=req.flash("error");                    // saves the error flash message to be printed, in browser storeage(treated like global variables).
+    res.locals.curuser=req.user;                            // Storing Information of User For Automatic login after signUp. {locals == global variables}.
     next();
 })
 
