@@ -2,15 +2,24 @@
 
     <div class="container-fluid" style="font-weight: 500;font-size: larger;">
         <i class="fa-solid fa-hotel" style="color: rgb(255, 85, 0);margin-right: 1rem;font-size: larger;"></i>
-      <a class="navbar-brand" href="/listing" style="margin-right: 10rem;">Roomzy</a>
+      <a class="navbar-brand" href="/listing" style="margin-right: 5rem;">Roomzy</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="collapse navbar-collapse bg-light p-4 mt-3" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link" href="/listing" style="margin-right: 3rem;">Home</a>
-          <a class="nav-link" href="/listing" style="margin-right: 3rem;">Listings</a>
-          <a class="nav-link" href="/listing/new" style="margin-right: 3rem;">Add Listing</a>
+          <a class="nav-link ms-lg-3" href="/listing">Home</a>
+          <a class="nav-link ms-lg-3" href="/listing">Listings</a>
+          <a class="nav-link ms-lg-3" href="/listing/new">Add Listing</a>
+        </div>
+        <div class="navbar-nav ms-auto">
+          <% if(!curuser) {%>
+          <a class="nav-link ms-lg-3" href="/SignUp">SignUp</a>
+          <a class="nav-link ms-lg-3" href="/Login">Login</a>
+          <% } %>
+          <% if(curuser) {%>
+          <a class="nav-link ms-lg-3" href="/LogOut">LogOut</a>
+          <% } %>
         </div>
       </div>
     </div>
