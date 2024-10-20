@@ -3,6 +3,8 @@ const router=express.Router();
 const listing=require("../models/listings");                             // Model (Structure of Collection with Schema).
 const asyncwrap=require("../utils/asyncwrap");                           // For Error Handling Instead Of Try Catch.
 const Expresserror=require("../utils/ExpressUserDefinedError");          // For Using User Defined Error Handlings.
+const { authenticate } = require("passport");
+const islogined=require("../AuthenticationMiddleWare");
 
 router.get("/",async(req,res,next)=>{
 
@@ -17,7 +19,7 @@ router.get("/",async(req,res,next)=>{
     }
 });
 
-router.get("/new",(req,res)=>{
+router.get("/new",islogined,(req,res)=>{
 
     res.render("listing/new");
 });
@@ -44,7 +46,7 @@ router.post("/",asyncwrap(async(req,res)=>{
     res.redirect("/listing")
 }));
 
-router.get("/:id/edit",asyncwrap(async(req,res)=>{
+router.get("/:id/edit",islogined,asyncwrap(async(req,res)=>{
 
     let {id}=req.params;
     const list = await listing.findById(id);
@@ -65,7 +67,7 @@ router.patch("/:id",asyncwrap(async(req,res)=>{
     res.redirect(`/listing/${id}`);
 }));
 
-router.delete("/:id",asyncwrap(async(req,res)=>{
+router.delete("/:id",islogined,asyncwrap(async(req,res)=>{
 
     let {id}=req.params;
     let d=await listing.findOneAndDelete({ _id: id });
