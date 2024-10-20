@@ -3,8 +3,9 @@ const router=express.Router( {mergeParams : true});
 const listing=require("../models/listings");                             // Model (Structure of Collection with Schema).
 const review=require("../models/review");                                // Model (Structure of Collection with Schema).
 const asyncwrap=require("../utils/asyncwrap");                           // For Error Handling Instead Of Try Catch.
+const islogined=require("../AuthenticationMiddleWare");                  // Authentication middleware to check Whether The User Is Logedin Or Not.
 
-router.post("/",asyncwrap(async(req,res)=>{
+router.post("/",islogined,asyncwrap(async(req,res)=>{
 
     console.log(req.body);
     let { id } = req.params;
@@ -20,7 +21,7 @@ router.post("/",asyncwrap(async(req,res)=>{
     res.redirect(`/listing/${id}`);
 }));
 
-router.delete("/:id1",asyncwrap(async(req,res)=>{
+router.delete("/:id1",islogined,asyncwrap(async(req,res)=>{
 
     let {id,id1}=req.params;
     await review.deleteOne({_id:id1});
