@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express=require("express");
 const app=express();
 const port=8080;                                                        // Server Portal
@@ -10,11 +11,13 @@ const {listingschema}=require("./ValidationSchema");                    // For  
 const listingroutes =require("./routes/listing");                       // For Getting All The Routes Related To Listing.
 const reviewroutes =require("./routes/review");                         // For Getting All The Routes Related To review. 
 const userroutes=require("./routes/user");
+const Mongostore=require("connect-mongo");
 const session = require("express-session");                             // To create seesion id for every user who browses our website (stores some imp inf in temprorary storage {ex:amazon cart})
 const flash =require("connect-flash");                                  // To flash The Message Only once.
 const passport=require("passport");                                     // Used For Authentication And Authorization.
 const LocalStrategy=require("passport-local");                          // Startegy In Passport Used For Authentication.
 const user=require("./models/User")                                     // Model (Structure of Collection with Schema).
+const db=process.env.MONGO_URI;
 
 app.set("view engine","ejs");                                    // When The Response Is 'Rendered' default path to access.
 app.set("views",path.join(__dirname,"/views"));               
@@ -33,7 +36,7 @@ main().then(()=>{                                                        // Sinc
 
 async function main() {                                               // To Connect mongoDb To Backend (Server).
     
-    await mongoose.connect("mongodb://127.0.0.1:27017/roomzy");       // MongoDB URL.
+    await mongoose.connect(db);                                      // MongoDB URL.
 }
 
 const listingvalidate=(req,res,next)=>{
@@ -49,8 +52,20 @@ const listingvalidate=(req,res,next)=>{
     }
 }
 
-const sessionoptions = {
+const store = Mongostore.create({
+    mongoUrl:db,
+    crypto:{
+        secret:"mysupersceretcode",
+    },
+    touchAfter:24*3600,
+});
 
+store.on("error",()=>{
+    console.log("ERROR IN MONGO SESSION STORE",err); 
+})
+
+const sessionoptions = {
+    store,
     secret : "mysupersceretcode",
     resave : false,
     saveUninitialized:true,
