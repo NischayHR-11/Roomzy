@@ -67,8 +67,7 @@ app.use(flash());                                    // Should be defined before
 
 app.use(passport.initialize());                      // Passport Used For Athentication.{ should be defined after Session Middle Ware.}
 app.use(passport.session());
-passport.use(new LocalStrategy(user.authenticate));
-
+passport.use(new LocalStrategy(user.authenticate()));    // Do Not Miss The Brackets In user.authenticate It is a method!! {wasted 4 hours}
 passport.serializeUser(user.serializeUser());                // To Store The User Data into the Session.
 passport.deserializeUser(user.deserializeUser());            // To Remove The User Data From The Session.
 
