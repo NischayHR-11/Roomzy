@@ -8,7 +8,7 @@ router.get("/signup",(req,res)=>{
     res.render("user/signup.ejs");
 })
 
-router.post("/signup",async(req,res)=>{
+router.post("/signup",async(req,res,next)=>{
 
     try{
 
@@ -16,8 +16,18 @@ router.post("/signup",async(req,res)=>{
         let curuser =new user({username:username,email:email});
         const registereduser=await user.register(curuser,password);
         console.log(registereduser);
-        req.flash("success",`Welcome To Roomzy , ${username}.....`);
-        res.redirect("/listing");
+        req.logIn(registereduser,(err)=>{     // Automatically Logins The User After SignUp.
+
+            if(err){
+
+                next(err);
+            }else{
+
+                req.flash("success",`Welcome To Roomzy , ${username}.....`);
+                res.redirect("/listing");
+            }
+        });
+
     }catch(err){
 
         req.flash("error", "User Already Exsists With This Userame , Please Try Again.");
@@ -41,7 +51,7 @@ router.get("/logout",(req,res,next)=>{
 
     let username=req.user.username;
 
-    req.logout((err)=>{
+    req.logout((err)=>{                    // For Loging Out The User.
 
         if(err){
 
