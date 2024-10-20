@@ -4,7 +4,7 @@ const listing=require("../models/listings");                             // Mode
 const asyncwrap=require("../utils/asyncwrap");                           // For Error Handling Instead Of Try Catch.
 const Expresserror=require("../utils/ExpressUserDefinedError");          // For Using User Defined Error Handlings.
 const { authenticate } = require("passport");
-const islogined=require("../AuthenticationMiddleWare");
+const islogined=require("../AuthenticationMiddleWare")
 
 router.get("/",async(req,res,next)=>{
 
