@@ -1,6 +1,7 @@
 const express = require("express");
 const router=express.Router();
-const user=require("../models/User")
+const user=require("../models/User");
+const passport=require("passport");
 
 router.get("/signup",(req,res)=>{
 
@@ -22,16 +23,20 @@ router.post("/signup",async(req,res)=>{
         req.flash("error", "User Already Exsists With This Userame , Please Try Again.");
         res.redirect("/signup");
     }
-})
+});
 
 router.get("/login",(req,res)=>{
     res.render("user/login.ejs");
-})
+});
 
-router.post("/login",(req,res)=>{
+router.post("/login",passport.authenticate("local",{ failureRedirect:'/login', failureFlash: true}),async(req,res)=>{    // automatically Authenticates The User.
 
-    res.send("Authentication");
-})
+        let{username}=req.body;
+        req.flash("success",`Welcome Back To Roomzy '${username}' ,  You Are Logedin !!! ....`);
+        res.redirect("/listing");
+    }
+);
+
 
 
 module.exports=router;
