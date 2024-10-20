@@ -1,3 +1,6 @@
+const path = require('path');
+require("dotenv").config({ path: path.resolve(__dirname, '../.env') });
+console.log(process.env.MONGO_URI);
 const mongoose=require("mongoose");
 const listingsdata=require("./data.js");
 const listing=require("../models/listings.js");
@@ -11,7 +14,9 @@ main().then(()=>{
 
 async function main() {
     
-    await mongoose.connect("mongodb://127.0.0.1:27017/roomzy");
+    let db=process.env.MONGO_URI;
+    console.log(db);
+    await mongoose.connect(db);
 }
 
 async function init(){
