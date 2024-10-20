@@ -13,9 +13,14 @@ body{
 
 .navbar-toggler{
 
-    text-decoration: none;
-    border: 0rem;
-    height: 2.5rem;
+    text-decoration: none !important;
+    border: 0rem !important;
+    height: 2.5rem !important;
+}
+
+.navbar-toggler:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .footer{
