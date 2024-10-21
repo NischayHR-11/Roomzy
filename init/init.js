@@ -22,9 +22,9 @@ async function main() {
 async function init(){
 
     await listing.deleteMany({});
+    listingsdata.data=listingsdata.data.map((obj)=>({...obj,owner:'67150c12422a6c3ba235abe4'}));   // to add owners to all objects in data.
     console.log(listingsdata.data);
     await listing.insertMany(listingsdata.data);
 }
-
 init();
 
