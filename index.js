@@ -52,7 +52,7 @@ const listingvalidate=(req,res,next)=>{
     }
 }
 
-const store = Mongostore.create({
+const store = Mongostore.create({                                     // Used For storing User Session Information Because Express Sessions Are Limitted
     mongoUrl:db,
     crypto:{
         secret:"mysupersceretcode",
