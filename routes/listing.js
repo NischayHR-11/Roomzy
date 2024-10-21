@@ -4,7 +4,8 @@ const listing=require("../models/listings");                             // Mode
 const asyncwrap=require("../utils/asyncwrap");                           // For Error Handling Instead Of Try Catch.
 const Expresserror=require("../utils/ExpressUserDefinedError");          // For Using User Defined Error Handlings.
 const { authenticate } = require("passport");
-const islogined=require("../AuthenticationMiddleWare")
+const islogined=require("../AuthenticationMiddleWare");
+const review=require("../models/review");                                // Model (Structure of Collection with Schema).
 
 router.get("/",async(req,res,next)=>{
 
@@ -27,11 +28,13 @@ router.get("/new",islogined,(req,res)=>{
 router.get("/:id",asyncwrap(async(req,res)=>{
 
     let {id}=req.params;
-    let list=await listing.findById(id).populate("reviews");    // populate gives full information about reviews.(which before was only id)
+    let list=await listing.findById(id).populate("reviews").populate("owner");    // populate gives full information about reviews.(which before was only id)
+    console.log(list);
     res.render("listing/info",{list});
 }));
 
 router.post("/",asyncwrap(async(req,res)=>{
+
 
     if(!req.body.listing){
 
@@ -41,7 +44,9 @@ router.post("/",asyncwrap(async(req,res)=>{
     let listings=req.body;
     console.log(listings);
     
-    await listing.create(listings.listing);
+    let d=await listing.create(listings.listing);
+    d.owner=req.user._id;
+    await d.save();                                              // to add Owner For The Created Listing.
     req.flash("success","New Listing Added..");
     res.redirect("/listing")
 }));
