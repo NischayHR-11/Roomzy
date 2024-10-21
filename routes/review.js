@@ -14,6 +14,8 @@ router.post("/",islogined,asyncwrap(async(req,res)=>{
     let list=await listing.findById(id);
     console.log(list);
     let r=await review.create({userid:"nischay",stars:star,content:reviewp});
+    r.author=req.user._id;
+    await r.save();
     console.log(r);
     list.reviews.push(r);
     await list.save();
