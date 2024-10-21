@@ -29,7 +29,11 @@ const listingschema= new mongoose.Schema({
     ],
 
     location:String,
-    country:String
+    country:String,
+    owner:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"user"
+    }
 });
 
 
