@@ -2,7 +2,6 @@ const mongoose=require("mongoose");
 
 const reviewschema =new mongoose.Schema({
 
-    userid:String,
     stars:{
 
         type:Number,
@@ -17,6 +16,10 @@ const reviewschema =new mongoose.Schema({
     content:{
         type : String,
         require
+    },
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"user"
     }
 });
 
