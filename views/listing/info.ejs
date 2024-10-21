@@ -3,12 +3,14 @@
 <body>
 
     <h2><%=list.title%></h2><br><br>
-    <img src="<%=list.image%>" alt="" style="height: 38vh;width:60%;object-fit: cover;border-radius: 1rem;"><br><br>
+    <img src="<%=list.image%>" alt="" style="height: 38vh;width:60%;object-fit: cover;border-radius: 1rem;"><br>
+    <h5 class="mt-2">Owner : <%=list.owner.username%></h5>
     <p><%=list.description%></p><br><br>
     <h4>Price : &#8377;<%= list.price.toLocaleString("en-IN") %></h4><br>
     <h4>location : <%=list.location%></h4><br>
     <h4>Country : <%=list.country%></h4><br>
 
+    <% if(curuser && curuser._id.equals(list.owner._id)) {%>
     <div class="row-i">
         
             <form action="/listing/<%=list._id%>/edit" method="get">
@@ -22,7 +24,7 @@
             </form>
 
     </div>
-
+    <% } %>
     <hr>
 
     <form action="/listing/<%=list._id %>/review" method="post" novalidate class="needs-validation" >
@@ -52,11 +54,13 @@
             <% for(r of list.reviews){ %>
 
                 <div class="card col-md-5 ms-3 mb-3 ">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
+                    <div class="card-body"> c\  c
+                      <h5 class="card-title">Username</h5>
                       <p class="card-text">rating : <%= r.stars %> <br> <%= r.content %></p>
                       <form action="/listing/<%=list._id %>/review/<%=r._id %>?_method=Delete" method="post">
+                        <% if(curuser._id.equals(r._id)) {%>
                         <button class="btn btn-outline-danger">Delete</button>
+                        <% } %>
                       </form>
                     </div>
                   </div>
