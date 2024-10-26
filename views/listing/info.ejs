@@ -72,7 +72,7 @@
                       <p class="card-text"><%= r.content %></p>
                       <p class="starability-result" data-rating="<%= r.stars %>">
                       <form action="/listing/<%=list._id %>/review/<%=r._id %>?_method=Delete" method="post">
-                        <% if(curuser && curuser._id.equals(r.author)) {%>
+                        <% if(curuser && curuser._id.equals(r.author._id)) {%>
                         <button class="btn btn-outline-danger">Delete</button>
                         <% } %>
                       </form>
