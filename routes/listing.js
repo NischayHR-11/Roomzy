@@ -28,7 +28,12 @@ router.get("/new",islogined,(req,res)=>{
 router.get("/:id",asyncwrap(async(req,res)=>{
 
     let {id}=req.params;
-    let list=await listing.findById(id).populate("reviews").populate("owner");    // populate gives full information about reviews.(which before was only id)
+    let list=await listing.findById(id).populate({
+        path:"reviews",
+        populate:{                      // Nested Populate To display owner Within reviews.
+            path:"author"
+        },
+    }).populate("owner");               // populate gives full information about reviews.(which before was only id)
     console.log(list);
     res.render("listing/info",{list});
 }));
