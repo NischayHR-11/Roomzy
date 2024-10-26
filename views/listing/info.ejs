@@ -33,8 +33,21 @@
     <br>
 
     <div>
+         <!-- Used For Star Stying Implementation -->
         <label for="range" class="form-label">Rate</label>
-        <input type="range" class="form-range form-control" name="star" id="reviewstar" min="1" max="5">
+        <fieldset class="starability-slot">          
+            <input type="radio" id="no-rate" class="input-no-rate" name="star" value="1" checked aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="star" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="star" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="star" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="star" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="star" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
     </div>
 
     <div>
@@ -56,7 +69,8 @@
                 <div class="card col-md-5 ms-3 mb-3 ">
                     <div class="card-body">
                       <h5 class="card-title"><%= r.author.username%></h5>
-                      <p class="card-text">rating : <%= r.stars %> <br> <%= r.content %></p>
+                      <p class="card-text"><%= r.content %></p>
+                      <p class="starability-result" data-rating="<%= r.stars %>">
                       <form action="/listing/<%=list._id %>/review/<%=r._id %>?_method=Delete" method="post">
                         <% if(curuser && curuser._id.equals(r.author)) {%>
                         <button class="btn btn-outline-danger">Delete</button>
