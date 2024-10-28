@@ -65,8 +65,8 @@ router.get("/:id/edit",islogined,asyncwrap(async(req,res)=>{
 }));
 
 router.patch("/:id",asyncwrap(async(req,res)=>{
-
-    if(!req.listing){                    // used even when form-validation is done .(client side ) because to over come server side error (sent through api requeests[postman,hopttsoch]).
+    
+    if(!req.body.listing){                    // used even when form-validation is done .(client side ) because to over come server side error (sent through api requeests[postman,hopttsoch]).
 
         throw new Expresserror(404,"Please enter valid listing !!");   // instead of writing for all condition ,we use Validation Schema (joi).{to handel the request sent through api's like postman}
     }
