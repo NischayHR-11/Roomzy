@@ -2,6 +2,8 @@
 
 **Roomzy** is a full-stack web application for browsing hotel rooms at desired locations. It allows users to view available hotel listings with details and search for accommodations based on their preferences.
 
+**Deployed Link :**  https://roomzy-pyqy.onrender.com/listing
+
 ## Features
 
 - **User-friendly Interface**: An intuitive and easy-to-navigate UI.
