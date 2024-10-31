@@ -11,9 +11,13 @@ const listingschema= new mongoose.Schema({
     description :String,
 
     image:{
+
+        url:{
         type:String,
         default:"https://www.pixelstalk.net/wp-content/uploads/2016/06/Nature-Wallpaper.jpg",
         set :(v)=>v===""?"https://www.pixelstalk.net/wp-content/uploads/2016/06/Nature-Wallpaper.jpg":v,
+        }, 
+        filename:String                 // File Name In Cloud Where The Image Is Stored.
     },
     price:{
         type :Number,
