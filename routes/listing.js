@@ -80,7 +80,7 @@ router.patch("/:id",upload.single("listing[image]"),asyncwrap(async(req,res)=>{
     }
     
     let {id}=req.params;
-    await listing.findByIdAndUpdate(id,{...req.body.listing});     // to split the attributes in object (...)
+    let list=await listing.findByIdAndUpdate(id,{...req.body.listing});     // to split the attributes in object (...)
     
     if(typeof req.file !=undefined){               // File Image Is Sent Through Request.
 
@@ -88,8 +88,8 @@ router.patch("/:id",upload.single("listing[image]"),asyncwrap(async(req,res)=>{
         const filename=req.file.filename;          // Image stored File Name.
         console.log(url +"....." + filename);      // Verification.
         
-        listing.image={url,filename};              // Storing The url of Image From Cloud and file name into database.
-        await listing.save(); 
+        list.image={url,filename};              // Storing The url of Image From Cloud and file name into database.
+        await list.save(); 
     }
 
     req.flash("success","Listing Edited Successfully..");
