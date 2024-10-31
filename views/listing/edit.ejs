@@ -1,6 +1,6 @@
 <% layout("layouts/boilerplate") %>
 <body>
-    <form method="POST" action="/listing/<%=list._id%>?_method=PATCH" novalidate class="needs-validation">
+    <form method="POST" action="/listing/<%=list._id%>?_method=PATCH" novalidate class="needs-validation"  enctype="multipart/form-data">
 
         <h2>Add New Room Details</h2>
         <br>
@@ -19,8 +19,8 @@
         
         <img src="<%=list.image.url %>" alt="" style="height: 10rem;width: 10rem;margin-top: .5rem;margin-bottom: .5rem;">
         <div class="mb-3">
-            <label for="image" class="form-label">Image Url</label>
-            <input type="file" value=<%=list.image.url %>  name="listing[image]" class="form-control">
+            <label for="image" class="form-label">Change Image</label>
+            <input type="file" value=<%=list.image %>  name="listing[image]" class="form-control">
             <div class="invalid-feedback"> Enter the Valid Image </div>
         </div>
 
