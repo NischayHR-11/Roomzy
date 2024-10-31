@@ -89,7 +89,7 @@ router.patch("/:id",upload.single("listing[image]"),asyncwrap(async(req,res)=>{
         console.log(url +"....." + filename);      // Verification.
         
         listing.image={url,filename};              // Storing The url of Image From Cloud and file name into database.
-        await d.save(); 
+        await listing.save(); 
     }
 
     req.flash("success","Listing Edited Successfully..");
