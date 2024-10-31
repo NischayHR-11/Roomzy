@@ -82,7 +82,7 @@ router.patch("/:id",upload.single("listing[image]"),asyncwrap(async(req,res)=>{
     let {id}=req.params;
     let list=await listing.findByIdAndUpdate(id,{...req.body.listing});     // to split the attributes in object (...)
     
-    if(typeof req.file !=undefined){               // File Image Is Sent Through Request.
+    if(req.file){                                   // File Image Is Sent Through Request is present or not.
 
         const url=req.file.path;                   // Uploaded Image File Data . (image url).
         const filename=req.file.filename;          // Image stored File Name.
