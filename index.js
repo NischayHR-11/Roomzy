@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config();                                             // For ' .env ' File.
 const express=require("express");
 const app=express();
 const port=8080;                                                        // Server Portal
@@ -16,7 +16,7 @@ const session = require("express-session");                             // To cr
 const flash =require("connect-flash");                                  // To flash The Message Only once.
 const passport=require("passport");                                     // Used For Authentication And Authorization.
 const LocalStrategy=require("passport-local");                          // Startegy In Passport Used For Authentication.
-const user=require("./models/User")                                     // Model (Structure of Collection with Schema).
+const user=require("./models/User");                                    // Model (Structure of Collection with Schema).
 const db=process.env.MONGO_URI;
 
 app.set("view engine","ejs");                                    // When The Response Is 'Rendered' default path to access.
