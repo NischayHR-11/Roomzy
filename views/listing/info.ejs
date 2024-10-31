@@ -3,7 +3,7 @@
 <body>
 
     <h2><%=list.title%></h2><br><br>
-    <img src="<%=list.image%>" alt="" style="height: 38vh;width:60%;object-fit: cover;border-radius: 1rem;"><br>
+    <img src="<%=list.image.url%>" alt="" style="height: 38vh;width:60%;object-fit: cover;border-radius: 1rem;"><br>
     <h5 class="mt-2">Owner : <%=list.owner.username%></h5>
     <p><%=list.description%></p><br><br>
     <h4>Price : &#8377;<%= list.price.toLocaleString("en-IN") %></h4><br>
