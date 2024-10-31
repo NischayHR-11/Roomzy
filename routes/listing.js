@@ -4,8 +4,12 @@ const listing=require("../models/listings");                             // Mode
 const asyncwrap=require("../utils/asyncwrap");                           // For Error Handling Instead Of Try Catch.
 const Expresserror=require("../utils/ExpressUserDefinedError");          // For Using User Defined Error Handlings.
 const { authenticate } = require("passport");
-const islogined=require("../AuthenticationMiddleWare");
+const islogined=require("../AuthenticationMiddleWare");                  // For Login Authentication.
 const review=require("../models/review");                                // Model (Structure of Collection with Schema).
+const multer=require("multer");                                          // Used In the Forms To Send request data in the form of files (images,pdf,etc); as URL encoded Is Only For Raw Datas.
+const {storage}=require("../CloudConfig.js")                             // Stores data as specified in storgae key word which required from other file.
+const upload=multer({storage});                                          // Folder Where The File Is Stored.
+
 
 router.get("/",async(req,res,next)=>{
 
@@ -38,7 +42,7 @@ router.get("/:id",asyncwrap(async(req,res)=>{
     res.render("listing/info",{list});
 }));
 
-router.post("/",asyncwrap(async(req,res)=>{
+router.post("/",upload.single("listing[image]"),asyncwrap(async(req,res)=>{
 
 
     if(!req.body.listing){
@@ -47,13 +51,18 @@ router.post("/",asyncwrap(async(req,res)=>{
     }
 
     let listings=req.body;
-    console.log(listings);
+    // console.log(listings);
+    const url=req.file.path;                   // Uploaded Image File Data . (image url).
+    const filename=req.file.filename;          // Image stored File Name.
+    console.log(url +"....." + filename);      // Verification.
     
     let d=await listing.create(listings.listing);
-    d.owner=req.user._id;
-    await d.save();                                              // to add Owner For The Created Listing.
+    d.owner=req.user._id;                                        // to add Owner For The Created Listing.
+    d.image={url,filename};                                      // Storing The url of Image From Cloud and file name into database.
+    await d.save();                                              
     req.flash("success","New Listing Added..");
     res.redirect("/listing")
+    res.send(req.file);
 }));
 
 router.get("/:id/edit",islogined,asyncwrap(async(req,res)=>{
