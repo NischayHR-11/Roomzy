@@ -16,10 +16,11 @@
             <textarea name="listing[description]" class="form-control" required><%=list.description %>  </textarea>
             <div class="invalid-feedback"> Description is required </div>
         </div>
-        <img src="<%= list.image.url %>" alt="" style="height: 2rem;width: 2rem;">
+        
+        <img src="<%=list.image.url %>" alt="" style="height: 5rem;width: 5rem;margin-top: 1rem;">
         <div class="mb-3">
             <label for="image" class="form-label">Image Url</label>
-            <input type="file" name="listing[image]" class="form-control" required>
+            <input type="file" value=<%=list.image.url %>  name="listing[image]" class="form-control" required>
             <div class="invalid-feedback"> Enter the Valid Image </div>
         </div>
 
