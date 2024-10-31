@@ -61,8 +61,7 @@ router.post("/",upload.single("listing[image]"),asyncwrap(async(req,res)=>{
     d.image={url,filename};                                      // Storing The url of Image From Cloud and file name into database.
     await d.save();                                              
     req.flash("success","New Listing Added..");
-    res.redirect("/listing")
-    res.send(req.file);
+    res.redirect("/listing");
 }));
 
 router.get("/:id/edit",islogined,asyncwrap(async(req,res)=>{
