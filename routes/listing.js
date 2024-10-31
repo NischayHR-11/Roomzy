@@ -72,7 +72,7 @@ router.get("/:id/edit",islogined,asyncwrap(async(req,res)=>{
     res.render("listing/edit",{list});
 }));
 
-router.patch("/:id",asyncwrap(async(req,res)=>{
+router.patch("/:id",upload.single("listing[image]"),asyncwrap(async(req,res)=>{
     
     if(!req.body.listing){                    // used even when form-validation is done .(client side ) because to over come server side error (sent through api requeests[postman,hopttsoch]).
 
@@ -81,6 +81,17 @@ router.patch("/:id",asyncwrap(async(req,res)=>{
     
     let {id}=req.params;
     await listing.findByIdAndUpdate(id,{...req.body.listing});     // to split the attributes in object (...)
+    
+    if(typeof req.file !=undefined){               // File Image Is Sent Through Request.
+
+        const url=req.file.path;                   // Uploaded Image File Data . (image url).
+        const filename=req.file.filename;          // Image stored File Name.
+        console.log(url +"....." + filename);      // Verification.
+        
+        listing.image={url,filename};              // Storing The url of Image From Cloud and file name into database.
+        await d.save(); 
+    }
+
     req.flash("success","Listing Edited Successfully..");
     res.redirect(`/listing/${id}`);
 }));
