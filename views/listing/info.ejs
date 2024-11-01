@@ -97,14 +97,25 @@
     <script>
 
         let coordinates = <%-JSON.stringify(corrdinates)%>;    // corrdinates which is parsed from route. (coverted from string to orginal array.)
+        let title = <%-JSON.stringify(list.title)%>;           // to get title from list
+
         let maptoken="<%= process.env.MAP_TOKEN %>"
         console.log(maptoken);
         mapboxgl.accessToken = maptoken;
         const map = new mapboxgl.Map({
             container: 'map',               // container ID
+            style: "mapbox://styles/mapbox/satellite-streets-v12",
             center: coordinates,            // starting position [lng, lat]. Note that lat must be set between -90 and 90
             zoom: 9                         // starting zoom
         });
+
+        const marker= new mapboxgl.Marker({ color : "red"})       // Pin Marked At Location.
+        .setLngLat(coordinates)
+        .setPopup(
+            new mapboxgl.Popup({ offset: 25 }).setHTML(`<h6> ${title}<h6>`)
+        )
+        .addTo(map);
+
     </script>
 
 </body>
