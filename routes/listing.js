@@ -8,6 +8,9 @@ const islogined=require("../AuthenticationMiddleWare");                  // For 
 const review=require("../models/review");                                // Model (Structure of Collection with Schema).
 const multer=require("multer");                                          // Used In the Forms To Send request data in the form of files (images,pdf,etc); as URL encoded Is Only For Raw Datas.
 const {storage}=require("../CloudConfig.js")                             // Stores data as specified in storgae key word which required from other file.
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');     // For Map Coordinates.
+const maptoken=process.env.MAP_TOKEN;
+const geocodingClient = mbxGeocoding({ accessToken:maptoken});
 const upload=multer({storage});                                          // Folder Where The File Is Stored.
 
 
@@ -39,7 +42,21 @@ router.get("/:id",asyncwrap(async(req,res)=>{
         },
     }).populate("owner");               // populate gives full information about reviews.(which before was only id)
     console.log(list);
-    res.render("listing/info",{list});
+    
+    let response= await geocodingClient         // For Getting The corrdinates Of The Location.
+    .forwardGeocode({
+        query:list.location,
+        limit:1,
+    })
+    .send();
+
+    let corrdinates=response.body.features[0].center;
+    console.log(corrdinates);
+    let cor1=corrdinates[0];
+    let cor2=corrdinates[1];
+    console.log(cor1 + "  "+cor2);
+    
+    res.render("listing/info",{list,corrdinates});
 }));
 
 router.post("/",upload.single("listing[image]"),asyncwrap(async(req,res)=>{
