@@ -115,3 +115,11 @@ body{
 
     margin-right: 1.5rem;
 }
+
+#map 
+{ 
+    
+    height: 40vh;
+    width: 100%;
+    /* width: 10vh; */
+}
