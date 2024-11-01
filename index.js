@@ -103,11 +103,6 @@ app.listen(port,(req,res)=>{
     console.log("Listeing To the The Server Port 8080...");
 });
 
-app.get("/",(req,res)=>{
-
-    res.send("This Is Root Page.");
-});
-
 app.all("*",(req,res,next)=>{
 
     next(new Expresserror(404,"Page Not Found !!"));
