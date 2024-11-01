@@ -52,8 +52,6 @@ router.get("/:id",asyncwrap(async(req,res)=>{
 
     let corrdinates=response.body.features[0].center;
     console.log(corrdinates);
-    let cor1=corrdinates[0];
-    let cor2=corrdinates[1];
     console.log(cor1 + "  "+cor2);
     
     res.render("listing/info",{list,corrdinates});
