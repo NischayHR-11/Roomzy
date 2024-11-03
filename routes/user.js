@@ -18,9 +18,15 @@ router.post("/signup",async(req,res,next)=>{
         console.log(registereduser);
         req.logIn(registereduser,(err)=>{     // Automatically Logins The User After SignUp.
 
-            if(err){
+            if(!email.endsWith("@gmail.com")){
+
+                req.flash("error"," Enter  Valid  Email !!!");
+                res.redirect("/signup");
+
+            }else if(err){
 
                 next(err);
+
             }else{
 
                 req.flash("success",`Welcome To Roomzy , ${username}.....`);
