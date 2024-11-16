@@ -43,7 +43,7 @@ To set up this project locally, follow these steps:
 
    ```
    MONGO_URI=your_mongodb_connection_string
-   PORT=5000
+   PORT=8080
    ```
 
    Replace `your_mongodb_connection_string` with your MongoDB connection details.
@@ -51,10 +51,10 @@ To set up this project locally, follow these steps:
 4. **Start the server**:
 
    ```bash
-   npm start
+   node index.js
    ```
 
-   The application will run on `http://localhost:5000`.
+   The application will run on `http://localhost:8080`.
 
 ## Usage
 
